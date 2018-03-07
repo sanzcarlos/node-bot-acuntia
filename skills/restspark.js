@@ -14,15 +14,20 @@ module.exports = function (controller) {
 
     const baseURI = "https://api.ciscospark.com/v1/";
 
-    controller.hears(['^show user (.*){3,}'], 'direct_message,direct_mention', (bot, message) => {
+    controller.hears(['^show user'], 'direct_message,direct_mention', (bot, message) => {
 
         // Obtenemos el nombre de los parametros
         var input = message.text.split(/\s+/);
-        if (input.length === 4)
-            var encodedName = encodeURI(`${input[2]} ${input[3]}`);
-        else if (input.length === 3)
-            var encodedName = input[2];
-        retrieveUser(bot, message, encodedName);
+        if (input.length < 3) {
+            body.reply(message, "Faltan parametros, se usa de la siguiente manera: **show user &lt;firstName&gt; [lastName]**.");
+        } else {
+            if (input.length === 4)
+                var encodedName = encodeURI(`${input[2]} ${input[3]}`);
+            else if (input.length === 3)
+                var encodedName = input[2];
+            // Resolver
+            retrieveUser(bot, message, encodedName);
+        }
     });
 
     var retrieveUser = (bot, message, fullName) => {
