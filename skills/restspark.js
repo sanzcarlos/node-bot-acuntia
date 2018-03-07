@@ -36,7 +36,7 @@ module.exports = function (controller) {
                     if (body.items.length === 1) {
                         solution += `El usuario es: ${body.items[0].displayName}<br>Correo principal: ${body.items[0].emails[0]}`;
                     } else if (body.items.length > 1) {
-                        var solution = `Los usuarios son:<br>`
+                        var solution = `Los usuarios son:`
                         for (i = 0; i < body.items.length; i++) {
                             solution += `<br>--------------------------<br>Usuario[${i}]: ${body.items[i].displayName}<br>Correo principal: ${body.items[i].emails[0]}`
                         }

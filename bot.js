@@ -44,11 +44,11 @@ bot.commons = {};
 bot.commons["healthcheck"] = process.env.PUBLIC_URL + "/ping";
 bot.commons["up-since"] = new Date(Date.now()).toGMTString();
 bot.commons["version"] = "v" + require("./package.json").version;
-bot.commons["owner"] = process.env.owner;
-bot.commons["support"] = process.env.support;
-bot.commons["platform"] = process.env.platform;
+bot.commons["owner"] = process.env.BOT_OWNER;
+bot.commons["support"] = process.env.BOT_SUPPORT;
+bot.commons["platform"] = process.env.BOT_PLATFORM;
 bot.commons["nickname"] = process.env.BOT_NICKNAME || "unknown";
-bot.commons["code"] = process.env.code;
+bot.commons["code"] = process.env.BOT_CODE;
 
 // Start Bot API
 controller.setupWebserver(process.env.PORT || 3000, function (err, webserver) {
