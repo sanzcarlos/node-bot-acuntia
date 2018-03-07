@@ -1,0 +1,18 @@
+{
+    "GLOBAL":{
+        "SPARK_TOKEN_MISSING": "Could not start as bots require a Cisco Spark API access token.\nPlease add env variable SPARK_TOKEN on the command line or to the .env file\nExample: \n> SPARK_TOKEN=XXXXXXXXXXXX PUBLIC_URL=YYYYYYYYYYYYY node bot.js\n",
+        "PUBLIC_URL_MISSING": "Could not start as this bot must expose a public endpoint.\nPlease add env variable PUBLIC_URL on the command line or to the .env file\nExample: \n> SPARK_TOKEN=XXXXXXXXXXXX PUBLIC_URL=YYYYYYYYYYYYY node bot.js\n"
+    },
+    "EN": {
+
+    },
+    "ES": {
+        
+    },
+    "CAT":{
+
+    },
+    "GL":{
+
+    }
+}
