@@ -10,9 +10,7 @@
 
 var Botkit = require('botkit');
 var fs = require('fs');
-var log_msg = JSON.parse(fs.readFileSync("./messages.json", {
-    encoding: "utf-8"
-}));
+var log_msg = JSON.parse(fs.readFileSync("./messages.json"));
 
 if (!process.env.SPARK_TOKEN) {
     console.log(log_msg.SPARK_TOKEN_MISSING);
