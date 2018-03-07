@@ -19,7 +19,7 @@ module.exports = function (controller) {
         // Obtenemos el nombre de los parametros
         var input = message.text.split(/\s+/);
         if (input.length < 3) {
-            bot.reply(message, `Faltan parametros, se usa de la siguiente manera ${bot.enrichCommand("show user <firstName> [lastName]")}`);
+            bot.reply(message, `Faltan parametros, se usa de la siguiente manera ${bot.enrichCommand(message,"show user <firstName> [lastName]")}`);
         } else {
             if (input.length === 4)
                 var encodedName = encodeURI(`${input[2]} ${input[3]}`);
