@@ -14,14 +14,22 @@ module.exports = function (controller) {
 
     const baseURI = "https://api.ciscospark.com/v1/";
 
-    module.exports.retrieveUser = (bot, message, fullName) => {
+    controller.hears(['^show user (.*){3,} (.*) (.*)'], 'direct_message,direct_mention', (bot, message) => {
+
+        // Obtenemos el nombre de los parametros
+        var input = message.text.split(/\s+/);
+        var encodedName = encodeURI(`${input[2]} ${input[3]}`);
+        restpark.retrieveUser(bot, encodedName);
+    });
+
+    var retrieveUser = (bot, message, fullName) => {
         request.get(`${baseURI}/people?displayName=${fullName}`, options, (error, response, body) => {
             if (error) {
                 console.log(`[ERROR]: ${error.message}`);
             }
             switch (response.statusCode) {
                 case 200:
-                var solution = "";
+                    var solution = "";
                     if (body.items.length === 1) {
                         solution += `El usuario es: ${body.items[0].displayName}<br>Correo principal: ${body.items[0].emails[0]}`;
                     } else if (body.items.length > 1) {
