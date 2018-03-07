@@ -18,7 +18,10 @@ module.exports = function (controller) {
 
         // Obtenemos el nombre de los parametros
         var input = message.text.split(/\s+/);
-        var encodedName = encodeURI(`${input[2]} ${input[3]}`);
+        if (input.length === 4)
+            var encodedName = encodeURI(`${input[2]} ${input[3]}`);
+        else if (input.length === 3)
+            var encodedName = input[2];
         retrieveUser(bot, message, encodedName);
     });
 
