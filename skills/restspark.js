@@ -14,7 +14,7 @@ module.exports = function (controller) {
 
     const baseURI = "https://api.ciscospark.com/v1/";
 
-    controller.hears(['^show user (.*){3,} (.*) (.*)'], 'direct_message,direct_mention', (bot, message) => {
+    controller.hears(['^show user (.*){3,}'], 'direct_message,direct_mention', (bot, message) => {
 
         // Obtenemos el nombre de los parametros
         var input = message.text.split(/\s+/);
