@@ -3,6 +3,8 @@
 //
 module.exports = function (controller) {
 
+    var request = require('request');
+
     // Test command to show users
     controller.hears(['^show user (.*){3,}'], 'direct_message,direct_mention', (bot, message) => {
 
