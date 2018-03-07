@@ -7,7 +7,7 @@ module.exports = function (controller) {
         var text = "Esto es lo que puedo hacer:";
         text += "\n- " + bot.enrichCommand(message, ".commons") + ": muestra información acerca del bot.";
         text += "\n- " + bot.enrichCommand(message, "help") + ": muestra información sobre los comandos.";
-        text += "\n- " + bot.enrichCommand(message, "show user &lt;firstName&gt; [lastName]") + ": muestra información con los datos indicados.";
+        text += "\n- " + bot.enrichCommand(message, "show user <firstName> [lastName]") + ": muestra información con los datos indicados.";
         bot.reply(message, text);
     });
 }
