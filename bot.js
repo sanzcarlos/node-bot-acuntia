@@ -10,7 +10,7 @@
 
 var Botkit = require('botkit');
 var fs = require('fs');
-var log_msg = JSON.parse(fs.readFileSync(__dirname + "./messages.json", {
+var log_msg = JSON.parse(fs.readFileSync("./messages.json", {
     encoding: "utf-8"
 }));
 
