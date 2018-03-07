@@ -19,7 +19,7 @@ module.exports = function (controller) {
         // Obtenemos el nombre de los parametros
         var input = message.text.split(/\s+/);
         if (input.length < 3) {
-            body.reply(message, "Faltan parametros, se usa de la siguiente manera: **show user &lt;firstName&gt; [lastName]**.");
+            bot.reply(message, "Faltan parametros, se usa de la siguiente manera: **show user &lt;firstName&gt; [lastName]**.");
         } else {
             if (input.length === 4)
                 var encodedName = encodeURI(`${input[2]} ${input[3]}`);
