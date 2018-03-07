@@ -19,7 +19,7 @@ module.exports = function (controller) {
         // Obtenemos el nombre de los parametros
         var input = message.text.split(/\s+/);
         var encodedName = encodeURI(`${input[2]} ${input[3]}`);
-        restpark.retrieveUser(bot, encodedName);
+        retrieveUser(bot, encodedName);
     });
 
     var retrieveUser = (bot, message, fullName) => {
