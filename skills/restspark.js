@@ -5,33 +5,48 @@ module.exports = function (controller) {
 
     var request = require('request');
 
-    // Test command to show users
-    controller.hears(['^show user (.*){3,}'], 'direct_message,direct_mention', (bot, message) => {
+    const options = {
+        json: true,
+        auth: {
+            bearer: process.env.SPARK_TOKEN
+        }
+    };
 
-        // Obtenemos el nombre de los parametros
-        var input = message.text.split(/\s+/);
+    const baseURI = "https://api.ciscospark.com/v1/";
 
-        if (input.length === 4)
-            var encodedName = encodeURI(`${input[2]} ${input[3]}`);
-        else if (input.length === 3)
-            var encodedName = input[2];
-
-        request.get(`https://api.ciscospark.com/v1/people?displayName=${encodedName}`, {
-            json: true,
-            auth: {
-                bearer: process.env.SPARK_TOKEN
-            }
-        }, (error, response, body) => {
+    module.exports.retrieveUser = (bot, message, fullName) => {
+        request.get(`${baseURI}/people?displayName=${fullName}`, options, (error, response, body) => {
             if (error) {
-                console.log("Ha ocurrido un error.");
+                console.log(`[ERROR]: ${error.message}`);
             }
-            if (response.statusCode === 200) {
-                if (body.items.length !== 0) {
-                    bot.reply(message, `El usuario es: ${body.items[0].displayName}<br>Correo principal: ${body.items[0].emails[0]}`);
-                } else {
-                    bot.reply(message, `No se encuentra dicho usuario.`);
-                }
+            switch (response.statusCode) {
+                case 200:
+                var solution = "";
+                    if (body.items.length === 1) {
+                        solution += `El usuario es: ${body.items[0].displayName}<br>Correo principal: ${body.items[0].emails[0]}`;
+                    } else if (body.items.length > 1) {
+                        var solution = `Los usuarios son:<br>`
+                        for (i = 0; i < body.items.length; i++) {
+                            solution += `<br>--------------------------<br>Usuario[${i}]: ${body.items[i].displayName}<br>Correo principal: ${body.items[i].emails[0]}`
+                        }
+                    } else {
+                        solution = `No se encuentran usuarios con estos parametros.`;
+                    }
+                    bot.reply(message, solution);
+                    break;
+                case 400:
+                case 401:
+                case 403:
+                case 404:
+                case 409:
+                case 429:
+                    break;
+                case 500:
+                case 503:
+                    break;
+                default:
+                    break;
             }
         });
-    });
+    }
 }
