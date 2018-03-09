@@ -1,5 +1,5 @@
 {
-    "PUBLIC_URL": "https://acunbot.herokuapp.com/",
+    "PUBLIC_URL": "https://8c433340.ngrok.io",
     "SPARK_TOKEN": "token_del_bot_a_administrar",
     "SECRET": "clave_para_verificar_que_la_fuente_del_mensaje_es_fiable",
     "WEBHOOK_NAME": "BOT-ACUNTIA-HEROKU",
