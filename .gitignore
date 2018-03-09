@@ -1,2 +1,4 @@
 node_modules
 .vscode
+conf.json
+ngrok.exe

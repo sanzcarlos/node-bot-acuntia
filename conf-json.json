@@ -1,0 +1,11 @@
+{
+    "PUBLIC_URL": "https://acunbot.herokuapp.com/",
+    "SPARK_TOKEN": "token_del_bot_a_administrar",
+    "SECRET": "clave_para_verificar_que_la_fuente_del_mensaje_es_fiable",
+    "WEBHOOK_NAME": "BOT-ACUNTIA-HEROKU",
+    "BOT_OWNER": "Francis Santos <http://www.acuntia.es>",
+    "BOT_SUPPORT": "Francis Santos <mailto:francis.santos@acuntia.es>",
+    "BOT_PLATFORM": "Cisco Spark",
+    "BOT_CODE": "https://github.com/sanzcarlos/node-bot-acuntia",
+    "BOT_NICKNAME": "acun-bot"
+}

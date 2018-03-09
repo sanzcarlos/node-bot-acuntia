@@ -1,6 +1,7 @@
 //
 // Command: show user
 //
+var config = require('../conf.json');
 module.exports = function (controller) {
 
     var request = require('request');
@@ -8,7 +9,7 @@ module.exports = function (controller) {
     const options = {
         json: true,
         auth: {
-            bearer: process.env.SPARK_TOKEN
+            bearer: config.SPARK_TOKEN
         }
     };
 
