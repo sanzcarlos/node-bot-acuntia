@@ -7,7 +7,7 @@ module.exports = function (controller) {
         var text = "Esto es lo que puedo hacer:";
         text += "\n- " + bot.enrichCommand(message, ".commons") + ": muestra información acerca del bot.";
         text += "\n- " + bot.enrichCommand(message, "help") + ": muestra información sobre los comandos.";
-        text += "\n- " + bot.enrichCommand(message, "show user <firstName> [lastName]") + ": muestra información con los datos indicados.";
+        text += "\n- " + bot.enrichCommand(message, "update users [email_domain]") + ": Añade un correo electrónico a los de cada usuario que no lo tengan. Ejemplo *update users @dominio.es*";
         bot.reply(message, text);
     });
 }

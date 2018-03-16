@@ -2,7 +2,6 @@
 // Welcome message 
 // sent as the bot is added to a Room
 //
-var config = require('../conf.json');
 
 module.exports = function (controller) {
 

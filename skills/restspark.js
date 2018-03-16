@@ -1,69 +1,48 @@
 //
-// Command: show user
+// Command: update users
 //
-var config = require('../conf.json');
 module.exports = function (controller) {
+    const ciscospark = require('ciscospark/env');
+    const _ = require('lodash');
 
-    var request = require('request');
+    controller.hears(['^update users @[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'], 'direct_message,direct_mention', (bot, message) => {
 
-    const options = {
-        json: true,
-        auth: {
-            bearer: config.SPARK_TOKEN
+        const ciscospark = require('ciscospark/env');
+        const letters = "abcdefghijklmnopqrstuvwxyz";
+        var users = {};
+        var completed = 0;
+        var promises = [];
+
+        // Añadimos a la lista de promesas la búsqueda de usuarios por cada letra del abecedario para mostrar todos los usuarios
+        for (i = 0; i < letters.length; i++) {
+            var options = { displayName: letters[i] };
+            var promise = ciscospark.people
+                .list(options);
+            promises.push(promise);
         }
-    };
-
-    const baseURI = "https://api.ciscospark.com/v1/";
-
-    controller.hears(['^show user'], 'direct_message,direct_mention', (bot, message) => {
-
-        // Obtenemos el nombre de los parametros
-        var input = message.text.split(/\s+/);
-        if (input.length < 3) {
-            bot.reply(message, `Faltan parametros, se usa de la siguiente manera ${bot.enrichCommand(message,"show user <firstName> [lastName]")}`);
-        } else {
-            if (input.length === 4)
-                var encodedName = encodeURI(`${input[2]} ${input[3]}`);
-            else if (input.length === 3)
-                var encodedName = input[2];
-            // Resolver
-            retrieveUser(bot, message, encodedName);
-        }
-    });
-
-    var retrieveUser = (bot, message, fullName) => {
-        request.get(`${baseURI}/people?displayName=${fullName}`, options, (error, response, body) => {
-            if (error) {
-                console.log(`[ERROR]: ${error.message}`);
-            }
-            switch (response.statusCode) {
-                case 200:
-                    var solution = "";
-                    if (body.items.length === 1) {
-                        solution += `El usuario es: ${body.items[0].displayName}<br>Correo principal: ${body.items[0].emails[0]}`;
-                    } else if (body.items.length > 1) {
-                        var solution = `Los usuarios son:`
-                        for (i = 0; i < body.items.length; i++) {
-                            solution += `<br>--------------------------<br>Usuario[${i}]: ${body.items[i].displayName}<br>Correo principal: ${body.items[i].emails[0]}`
-                        }
-                    } else {
-                        solution = `No se encuentran usuarios con estos parametros.`;
+        new Promise((resolve, reject) => {
+            bot.reply(message, "**Retreiving all users...**");
+            promises.forEach((value) => {
+                value.then((people) => {
+                    var person;
+                    for (x = 0; x < people.items.length; x++) {
+                        person = people.items[x];
+                        users[person.id] = person.emails;
                     }
-                    bot.reply(message, solution);
-                    break;
-                case 400:
-                case 401:
-                case 403:
-                case 404:
-                case 409:
-                case 429:
-                    break;
-                case 500:
-                case 503:
-                    break;
-                default:
-                    break;
-            }
+                    completed++;
+                    if (completed === letters.length)
+                        resolve(users);
+                }).catch((reason) => {
+                    reject(reason);
+                });
+            })
+        }).then((users) => {
+            var reply = `*All users retreived, now we're going to try to update the data, the amount is ${Object.keys(users).length}*<br/>`;
+            reply += "**Updating their info...**<br/>";
+            reply += "*Function not implemented yet*";
+            bot.reply(message, reply);
+        }).catch((reason) => {
+            bot.reply(message, `${reason}`);
         });
-    }
+    });
 }
