@@ -18,6 +18,7 @@
     "dotenv": "^5.0.1",
     "lodash": "^4.17.5",
     "node-env-file": "^0.1.8",
+    "query-string": "^6.0.0",
     "require": "^2.4.20"
   }
 }
